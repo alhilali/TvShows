@@ -1,0 +1,36 @@
+.navbar-side {
+  height: 100%;
+  width: 25%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 0;
+  overflow-y: scroll;
+  z-index: 1000;
+  transition: left ease 0.5s;
+}
+
+#collapseBtn {
+  position: absolute;
+  z-index: 100;
+  right: 0px;
+  margin-right: -6px;
+}
+
+
+.toggleBtn {
+  display: inline-block;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  position: relative;
+  cursor: pointer;
+  top: 0;
+  padding: 2px 1px;
+  font: normal normal bold 30px/50px Arial, Helvetica, sans-serif;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  text-transform: uppercase;
+  -o-text-overflow: clip;
+  text-overflow: clip;
+}

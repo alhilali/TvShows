@@ -1,0 +1,47 @@
+@import url("https://fonts.googleapis.com/css?family=Lato:400,300,700");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Lato', sans-serif;
+}
+
+.info {
+  background-color: #f9f9f9;
+  padding: 23px;
+  border-bottom: 1px solid #ccc;
+  margin: 0;
+  text-align: left;
+}
+
+.epDate {
+  color: #CCC;
+  font-size: 14px;
+  line-height: 29px;
+}
+
+.basic-infos {
+  color: #666;
+  font-size: 14px;
+}
+
+.overview {
+  font-family: 'Lato', sans-serif;
+  color: #aaa;
+  font-size: 14px;
+  width: 500px;
+}
+
+.epName {
+  height: 30px;
+  font-size: 14px;
+  overflow: hidden;
+  line-height: 29px;
+  text-align: left;
+}
+
+.epList {
+      align-items: center;
+}

@@ -1,0 +1,64 @@
+#favButn {
+  transition: all 0.4s cubic-bezier(1, -0.26, 0, 1.79);
+  margin-left: 10px;
+  position: relative;
+  top: 0;
+  /*transition: top ease 0.5s;*/
+  margin-bottom: -15px;
+}
+
+#favButn:hover {
+  top: -10px;
+}
+
+.overlay:hover #favButn {
+    opacity: 1;
+    display: block;
+}
+
+#showName {
+  position: absolute;
+  z-index: 99;
+  display: none;
+  transition: all 0.4s cubic-bezier(1, -0.26, 0, 1.79);
+}
+
+.overlay:hover #showName {
+    opacity: 1;
+    display: block;
+}
+
+.showPoster {
+  width: 230;
+}
+
+#title {
+  font-size: 14px;
+  color: #444;
+  height: 15px;
+  overflow: hidden;
+  word-break: break-all;
+  display: inline-block;
+  vertical-align: top;
+  font-weight: normal;
+}
+#title a {
+  color: #444;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.left {
+  letter-spacing: 0;
+  text-align: left;
+  margin-left: 15px;
+  width: 200px;
+}
+
+.card {
+    border: 0;
+    margin: 8px;
+    width: 165px;
+    height: 220px;
+}

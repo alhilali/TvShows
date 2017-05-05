@@ -1,0 +1,114 @@
+@import url("https://fonts.googleapis.com/css?family=Lato:400,300,700");
+
+.seasonList {
+  width: 800px;
+  margin: 30px;
+  width: 60%;
+  transition: all 0.3s ease-out;
+  list-style: none;
+}
+
+.seasonList h2 {
+  text-align: left;
+  font: 'Lato', sans-serif;
+  margin: 0;
+  padding: 0;
+  margin-left: 3px;
+}
+
+.seasonList h6 {
+  text-align: left;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+#spacer {
+  display: inline-block;
+  width: 10px;
+}
+
+.wrapper-dropdown {
+  position: relative;
+  width: 60px;
+  background: #fff;
+  border-left: 2px solid #d9534f;
+  margin-left: 10px;
+}
+
+.wrapper-dropdown:after {
+    margin-right: -10px;
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    margin-top: -3px;
+    border-width: 6px 6px 0 6px;
+    border-style: solid;
+    border-color: grey transparent;
+}
+
+.wrapper-dropdown .dropdown {
+  /* Size & position */
+    position: absolute;
+    top: 100%;
+    left: -5px;
+
+    /* Styles */
+    background: white;
+    transition: all 0.3s ease-out;
+    list-style: none;
+
+    /* Hiding */
+    opacity: 0;
+    pointer-events: none;
+}
+
+.wrapper-dropdown .dropdown li {
+  margin-left: 3px;
+  height: 20px;
+}
+
+.wrapper-dropdown .dropdown li a {
+    display: block;
+    text-decoration: none;
+    color: #333;
+    border-left: 2px solid;
+    transition: all 0.3s ease-out;
+    height: 20px;
+}
+
+.wrapper-dropdown .dropdown li:nth-child(1) a {
+    border-left-color: #00ACED;
+}
+
+.wrapper-dropdown .dropdown li:nth-child(2) a {
+    border-left-color: #4183C4;
+}
+
+.wrapper-dropdown .dropdown li:nth-child(3) a {
+    border-left-color: #3B5998;
+}
+
+.wrapper-dropdown .dropdown li i {
+    margin-right: 5px;
+    color: inherit;
+    vertical-align: middle;
+}
+
+/* Hover state */
+
+.wrapper-dropdown .dropdown li:hover a {
+    color: grey;
+}
+
+.wrapper-dropdown.active:after {
+    border-width: 0 6px 6px 6px;
+}
+
+.wrapper-dropdown.active .dropdown {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 99;
+}

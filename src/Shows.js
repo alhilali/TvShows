@@ -1,124 +1,112 @@
 import React, { Component } from 'react';
-import { observable } from 'mobx';
-import { observer } from "mobx-react"
+import ReactDOM from 'react-dom';
 import './style/style.css';
+import './style/shows.css'
 import Sidebar from './Sidebar';
 import Show from './Show';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import Myshows from './Myshows';
+import Home from './Home';
+import Tv from './Tv';
 
-@observer
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Switch,
+  Redirect } from 'react-router-dom'
+import { logout } from './helpers/auth'
+import { firebaseAuth } from './config/constants'
+import Login from './Login'
+import Register from './Register'
+
+
+function PrivateRoute ({component: Component, authed, ...rest}) {
+  return (
+    <Route
+      {...rest}
+      render={(props) => authed === true
+        ? <Component {...props} {...rest} />
+        : <Redirect to={{pathname: '/login', state: {from: props.location}}} />}
+    />
+  )
+}
+
+function PublicRoute ({component: Component, authed, ...rest}) {
+  return (
+    <Route
+      {...rest}
+      render={(props) => authed === false
+        ? <Component {...props} {...rest} />
+        : <Redirect to='/home'/>}
+    />
+  )
+}
+
 class Shows extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tvshows : observable([]),
-      number : observable()
+      authed: false,
+      query : '',
+      isCollapsed: false
     };
-    this.toggleFavorite = this.toggleFavorite.bind(this);
-    this.search = this.search.bind(this);
+
+    this.toggle = this.toggle.bind(this);
   }
 
-  toggleFavorite(){
-  this.props.onFavoriteToggle("Priosn Break");
-  }
-
-  search(query){
-    if (query === "")
-    {
-      this.state = {
-        tvshows : observable([])
-      };
-      this.componentWillMount();
-      return;
-    }
-    let tvshows = observable([]);
-
-    var data = "{}";
-    var responses = "";
-
-    var xhr = new XMLHttpRequest();
-
-    xhr.addEventListener("readystatechange", function () {
-      if (this.readyState === this.DONE) {
-        responses = JSON.parse(this.responseText);
-        var array = [];
-        array = responses.results;
-        var i;
-        for (i = 0; i < responses.total_results; i++) {
-          if (responses.results[i] != null && responses.results[i].poster_path != null)
-            tvshows.push({name: responses.results[i].name, poster: responses.results[i].poster_path});
-        }
-
+  componentDidMount () {
+    this.removeListener = firebaseAuth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({
+          authed: true
+        })
+      } else {
+        this.setState({
+          authed: false,
+        })
       }
-    });
-
-    xhr.open("GET", "https://api.themoviedb.org/3/search/tv?api_key=35a6a172e166875d39a99cf68b63af6b&language=en-US&page=1&query="+query+"&page=1");
-
-    xhr.send(data);
-
-    this.setState({tvshows});
+    })
   }
 
 
+  componentWillUnmount () {
+    this.removeListener()
+  }
 
-  componentWillMount() {
-      this.state = {
-      tvshows : observable([])
-      };
-      var list = observable([]);
+  onChange = (e) => {
+    this.setState({query: e})
+  }
 
-      var data = "{}";
-      var responses = "";
-
-      var xhr = new XMLHttpRequest();
-
-      xhr.addEventListener("readystatechange", function () {
-        if (this.readyState === this.DONE) {
-          responses = JSON.parse(this.responseText);
-          var array = [];
-          array = responses.results;
-          var i;
-          for (i = 0; i < array.length; i++) {
-            //console.log(responses.results[i].name);
-            list.push({name: responses.results[i].name, poster: responses.results[i].poster_path});
-            //console.log(myData);
-            //
-
-          }
-
-        }
-      });
-
-      xhr.open("GET", "https://api.themoviedb.org/3/tv/popular?page=1&language=en-US&api_key=35a6a172e166875d39a99cf68b63af6b");
-
-      xhr.send(data);
-
-
-      this.setState({tvshows : list});
+  toggle(val) {
+    if (val) {
+      ReactDOM.findDOMNode(this.refs.sidebar).style.marginLeft = '0px';
+      return false;
+    } else {
+      ReactDOM.findDOMNode(this.refs.sidebar).style.marginLeft = '-220px'
+      //ReactDOM.findDOMNode(this.refs.sidebar).style.marginRight = '-55px'
+      //ReactDOM.findDOMNode(this.refs.sidebar).styles.width = '10px'
+      return true;
+    }
   }
 
   render() {
-
-    if (this.state.tvshows.length > 0) {
-      var listItems = this.state.tvshows.map((data, i) => {
-        return (<Show name={data.name} poster={data.poster} key={i}/>)
-      });
-    }
-
     return (
-      <div>
-      <Sidebar onSearch={this.search}/>
 
-      <ReactCSSTransitionGroup id="mainpanel" className="d-flex align-content-between flex-wrap"
-        transitionName="example"
-        transitionEnterTimeout={500}
-        transitionLeaveTimeout={300}>
+    <div className="mainContainer">
+      <div ref="sidebar"  className="box2">
+        <Sidebar authed={this.state.authed} onSearch={this.onChange} toggle={this.toggle}/>
+      </div>
+      <div ref="main" className="box1">
 
-        {listItems}
+        <PrivateRoute authed={this.state.authed} path='/home' component={Home} query={this.state.query} />
+        <PrivateRoute authed={this.state.authed} path='/myshows' component={Myshows} query={this.state.query} />
+        <PublicRoute authed={this.state.authed} path='/login' component={Login} />
+        <PrivateRoute authed={this.state.authed} path='/tv/:id' component={Tv} />
+        <PublicRoute authed={this.state.authed} path='/register' component={Register} />
 
-      </ReactCSSTransitionGroup>
 
       </div>
+    </div>
     );
   }
 }

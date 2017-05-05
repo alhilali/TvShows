@@ -1,42 +1,81 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import './style/style.css';
+import './style/sidebar.css'
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
+import Login from './Login';
+import Register from './Register';
+import { logout } from './helpers/auth'
+
 
 class Sidebar extends Component {
   constructor(props) {
-    super(props)
-
+    super(props);
+    this.state = {
+      isCollapsed : false
+    }
+    this.collapse = this.collapse.bind(this);
   }
 
   onChange(event) {
     this.props.onSearch(event.target.value);
   }
+
+  activateMyshows () {
+  }
+
+  activateHome () {
+  }
+
+  collapse () {
+    let result = this.props.toggle(this.state.isCollapsed)
+    this.setState({isCollapsed : result});
+  }
+
   render() {
     return (
-      <nav className="navbar navbar-dark red bg-primary">
-          <div className="container">
-              <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav1" aria-controls="navbarNav1" aria-expanded="false" aria-label="Toggle navigation">
-                  <span className="navbar-toggler-icon"></span>
-              </button>
-              <a className="navbar-brand" href="#">
-                  <strong>TV</strong>
-              </a>
-              <ul className="navbar-nav mr-auto">
-                  <li className="nav-item active">
-                      <Link to="/home" className="nav-link">Home</Link>
-                  </li>
-                  <li className="nav-item">
-                      <a className="nav-link">My Shows</a>
-                  </li>
-                  <li className="nav-item">
-                      <a className="nav-link">Watch Next</a>
-                  </li>
-              </ul>
-              <form className="form-inline waves-effect waves-light">
-                  <input onChange={this.onChange.bind(this)} className="form-control" type="text" placeholder="Search" />
-              </form>
-          </div>
-      </nav>
+        <nav ref="sidebar" className="navbar navbar-dark red bg-primary">
+            <div className="container">
+                <div id="collapseBtn">
+                  <a onClick={this.collapse} href="#">
+                    <div className="toggleBtn">
+                    {this.state.isCollapsed
+                      ? <span>&gt;</span>
+                      : <span>&lt;</span>
+                    }
+                    </div>
+                  </a>
+                </div>
+                <a className="navbar-brand" href="#">
+                    <strong>TV</strong>
+                </a>
+                <ul className="navbar-nav mr-auto">
+                    <li ref="home" className="nav-item">
+                        <Link onClick={this.activateHome} to="/home" className="nav-link">Home</Link>
+                    </li>
+                    <li ref="myshows" className="nav-item">
+                        <Link onClick={this.activateMyshows} to="/myshows" className="nav-link">My Shows</Link>
+                    </li>
+                    <li className="nav-item">
+                        <a className="nav-link">Watch Next</a>
+                    </li>
+                    <li className="nav-item">
+                    {this.props.authed
+                      ? <a onClick={() => {
+                          logout()
+                        }} className="nav-link">Logout</a>
+                    : <span>
+                      <Link to="/login" className="nav-link">Login</Link>
+                      <Link to="/register" className="nav-link">Register</Link>
+                      </span>
+                    }
+                    </li>
+                </ul>
+                <form className="form-inline waves-effect waves-light">
+                    <input onChange={this.onChange.bind(this)} className="form-control" type="text" placeholder="Search" />
+                </form>
+            </div>
+          </nav>
     );
   }
 }

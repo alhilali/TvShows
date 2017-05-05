@@ -7555,13 +7555,6 @@ i.btn-danger {
     background: #C00!important
 }
 
-.card {
-    border: 0;
-    margin: 15px;
-    min-width: 185px;
-    max-width: 230px;
-}
-
 -title a {
     color: #424242;
     transition: .4s
@@ -7585,6 +7578,7 @@ i.btn-danger {
 }
 
 .card .card-block {
+    padding: 5px;
     position: relative
 }
 
@@ -7660,17 +7654,18 @@ i.btn-danger {
 }
 
 .navbar {
-    font-weight: 300;
     overflow: auto;
     position: fixed;
     top: 0px;
-    min-width: 150px;
-    max-width: 230px;
+    max-width: 255px;
     height: 100%;
+    z-index: 99;
+    background: #3a6186;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #89253e, #3a6186);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #89253e, #3a6186); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    transition: all 0.4s cubic-bezier(1, -0.26, 0, 1.79);
 }
-
 .navbar form input {
-    margin: 0 5px 1px 8px;
     height: 1rem
 }
 
@@ -7762,14 +7757,6 @@ i.btn-danger {
     flex-direction: row
 }
 
-@media (max-width:991px) {
-    .navbar .container {
-        width: 100%
-    }
-    .navbar .container .navbar-toggler-right {
-        right: 0
-    }
-}
 
 .navbar .dropdown-menu {
     position: absolute!important
@@ -8132,7 +8119,8 @@ i.btn-danger {
 }
 
 .hm-white-slight .full-bg-img, .hm-white-slight .mask {
-    background-color: rgba(255, 255, 255, .1)
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.61) 0%,rgba(255,255,255,0) 53%)
+
 }
 
 .hm-zoom img {
@@ -8320,7 +8308,8 @@ ul.instagram-photos li img {
 }
 
 #mainpanel {
-    margin-left: 250px;
+    margin-top: 10px;
+
 }
 
 .example-enter {
@@ -8339,4 +8328,61 @@ ul.instagram-photos li img {
 .example-leave.example-leave-active {
   opacity: 0.01;
   transition: opacity 300ms ease-in;
+}
+
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+.login-page {
+  padding: 8% 0 0;
+}
+.form {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.form input {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+.form button {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #4CAF50;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+.form button:hover,.form button:active,.form button:focus {
+  background: #43A047;
+}
+.form .message {
+  margin: 15px 0 0;
+  color: #b3b3b3;
+  font-size: 12px;
+}
+.form .message a {
+  color: #4CAF50;
+  text-decoration: none;
+}
+.form .register-form {
+  display: none;
 }

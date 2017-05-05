@@ -1,0 +1,26 @@
+#showList {
+  overflow-x: scroll;
+  padding: 23px;
+  border-bottom: 1px solid #ccc;
+  background-color: #f9f9f9;
+}
+
+
+#listTitle {
+  text-align: left;
+}
+
+.HomeContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.popular {
+  overflow-x: scroll;
+  order: 1;
+}
+
+.tonight {
+  overflow-x: scroll;
+  order: 2;
+}

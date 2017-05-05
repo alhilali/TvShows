@@ -1,0 +1,51 @@
+
+.topBackground {
+  padding: 20px;
+  background-size: cover !important;
+  height: 300px;
+}
+
+.fullyClear {
+  margin-left: 300px;
+}
+
+.flex-container {
+  display: flex;
+}
+
+.showName {
+  text-align: center;
+}
+
+.showName h1 {
+  color: white;
+  font-weight: normal;
+  font-size: 56px;
+  margin: 10px 0 5px;
+  text-shadow: 0 2px 1px rgba(0,0,0,.3);
+}
+
+.showInfo {
+
+}
+
+.separator {
+    color: #cbb123;
+    margin: 0 5px;
+}
+
+#overview {
+  line-height: normal;
+}
+
+.Aligner-item {
+  max-width: 50%;
+}
+
+.Aligner-item--top {
+  align-self: flex-start;
+}
+
+.Aligner-item--bottom {
+  align-self: flex-end;
+}
