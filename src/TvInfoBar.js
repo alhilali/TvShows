@@ -2,13 +2,8 @@ import React, { Component } from 'react';
 import './style/tvInfo.css';
 
 class TvInfoBar extends Component {
-  constructor(props) {
-    super(props);
-
-  }
 
   render() {
-
     return (
       <div className="info">
         <div className="basic-infos">

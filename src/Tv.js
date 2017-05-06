@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import './style/tv.css';
 import './style/style.css';
-import star from './img/icons/star2.svg';
 import { firebaseAuth } from './config/constants'
-import { Link } from 'react-router-dom'
-import { saveShow } from './helpers/auth'
-import { setAllInfo, setInfo, getBackground, isFavorite } from './helpers/tvDB'
+import { setAllInfo } from './helpers/tvDB'
 import { observable } from 'mobx';
 import { observer } from "mobx-react"
 import Season from './Season'
-import Poster from './Poster'
 import TvInfoBar from './TvInfoBar'
 
 

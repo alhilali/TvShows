@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './style/style.css';
 import './style/sidebar.css'
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
-import Login from './Login';
-import Register from './Register';
+import { Link } from 'react-router-dom'
 import { logout } from './helpers/auth'
 
 
@@ -28,7 +26,15 @@ class Sidebar extends Component {
   }
 
   collapse () {
-    let result = this.props.toggle(this.state.isCollapsed)
+    let result;
+    if (this.state.isCollapsed) {
+      ReactDOM.findDOMNode(this.refs.sidebar).style.left = '0px';
+      result = false;
+    } else {
+      ReactDOM.findDOMNode(this.refs.sidebar).style.left = '-220px'
+      result = true;
+    }
+    this.props.toggle()
     this.setState({isCollapsed : result});
   }
 

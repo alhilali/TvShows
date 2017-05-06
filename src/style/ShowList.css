@@ -8,6 +8,7 @@
 
 #listTitle {
   text-align: left;
+  position: absolute;
 }
 
 .HomeContainer {
@@ -23,4 +24,8 @@
 .tonight {
   overflow-x: scroll;
   order: 2;
+}
+
+.showList {
+  padding-top: 35px;
 }

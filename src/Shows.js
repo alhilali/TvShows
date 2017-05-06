@@ -3,18 +3,10 @@ import ReactDOM from 'react-dom';
 import './style/style.css';
 import './style/shows.css'
 import Sidebar from './Sidebar';
-import Show from './Show';
 import Myshows from './Myshows';
 import Home from './Home';
 import Tv from './Tv';
-
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch,
-  Redirect } from 'react-router-dom'
-import { logout } from './helpers/auth'
+import { Route, Redirect } from 'react-router-dom'
 import { firebaseAuth } from './config/constants'
 import Login from './Login'
 import Register from './Register'
@@ -46,7 +38,7 @@ class Shows extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      authed: false,
+      authed: true,
       query : '',
       isCollapsed: false
     };
@@ -77,16 +69,8 @@ class Shows extends Component {
     this.setState({query: e})
   }
 
-  toggle(val) {
-    if (val) {
-      ReactDOM.findDOMNode(this.refs.sidebar).style.marginLeft = '0px';
-      return false;
-    } else {
-      ReactDOM.findDOMNode(this.refs.sidebar).style.marginLeft = '-220px'
-      //ReactDOM.findDOMNode(this.refs.sidebar).style.marginRight = '-55px'
-      //ReactDOM.findDOMNode(this.refs.sidebar).styles.width = '10px'
-      return true;
-    }
+  toggle() {
+    ReactDOM.findDOMNode(this.refs.sidebar).classList.toggle('collapsee');
   }
 
   render() {

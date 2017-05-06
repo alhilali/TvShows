@@ -6,8 +6,6 @@ export function getFavorites() {
     database.ref('/users/' + firebaseAuth().currentUser.uid + '/favorites/')
     .once('value')
     .then(function(snapshot) {
-        //var username = snapshot.val().username;
-        var i = 0;
         snapshot.forEach(function(childSnapshot) {
             list.push(childSnapshot.val().id);
         });

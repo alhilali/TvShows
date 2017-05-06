@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { observable } from 'mobx';
 import { observer } from "mobx-react"
-import Show from './Show';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import { getPopular, searchTMDB } from './helpers/tvDB'
 import ShowList from './ShowList';
 import './style/Home.css';

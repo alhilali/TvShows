@@ -1,0 +1,10 @@
+#myshowstitle {
+  margin-left: 8px;
+  text-align: left;
+}
+
+.myShows {
+  padding: 23px;
+  border-bottom: 1px solid #ccc;
+  background-color: #f9f9f9;
+}

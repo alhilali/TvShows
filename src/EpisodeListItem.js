@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import './style/epList.css';
-import star from './img/icons/star2.svg';
-import { firebaseAuth } from './config/constants'
 import { Link } from 'react-router-dom'
-import { saveShow } from './helpers/auth'
 import { episodeWatched, isWatched, episodeNotWatched } from './helpers/tvDB'
 import { observable } from 'mobx';
 import { observer } from "mobx-react"
@@ -19,7 +16,6 @@ class EpisodeListItem extends Component {
   }
 
   async componentWillMount () {
-    var bind = this
     this.watched = await isWatched(this.props.id, this.props.seasonNum, this.props.num)
   }
 

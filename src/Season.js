@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
 import './style/season.css';
-import star from './img/icons/star2.svg';
-import { firebaseAuth } from './config/constants'
-import { Link } from 'react-router-dom'
-import { saveShow } from './helpers/auth'
 import { getSeason, getNumOfSeasons } from './helpers/tvDB'
 import { observable } from 'mobx';
 import { observer } from "mobx-react"
@@ -66,7 +62,7 @@ class Season extends Component {
     };
     return (
     <div className="seasonList">
-        <div className='row'>
+        <div className='row seasonNumber'>
           <h2>Season</h2>
           <div ref="dropdown" onClick={this.activeDropdown} className="wrapper-dropdown">
             <h2>

@@ -1,55 +1,24 @@
 import React, { Component } from 'react';
 import { observable } from 'mobx';
 import { observer } from "mobx-react"
-import './style/style.css';
-import Sidebar from './Sidebar';
+import './style/myshows.css';
 import Show from './Show';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch,
-  Redirect } from 'react-router-dom'
-import { logout, getCurrentUser } from './helpers/auth'
-import { getFavorites, getPoster } from './helpers/tvDB'
-import { database, firebaseAuth, ref } from './config/constants'
-import { Login } from './Login'
-import { Register } from './Register'
+import { database, firebaseAuth } from './config/constants'
 
 @observer
 class Myshows extends Component {
   @observable tvshows = [];
   @observable current = [];
+  @observable user;
   constructor(props) {
     super(props);
-    this.state = {
-      favorites : observable([])
-    };
-
-    this.search = this.search.bind(this);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.query) {
-      this.search(nextProps.query)
-    } else {
-      this.tvshows = this.current;
-    }
-  }
-
-   search(query){
-    let filterdList = this.tvshows;
-    this.tvshows = filterdList.filter(
-      (show) => {
-        return (show.name.toLowerCase().indexOf(query) !== -1);
-      }
-    )
+    this.setUser = this.setUser.bind(this)
   }
 
   readFavorites() {
     let list = observable([])
-    database.ref('/users/' + firebaseAuth().currentUser.uid + '/favorites/')
+    database.ref('/users/' + this.user.uid + '/favorites/')
     .orderByChild("id")
     .on("child_added", function(snap) {
       list.push({
@@ -61,14 +30,37 @@ class Myshows extends Component {
 
     this.tvshows = list;
     this.current = list;
+    return list;
+  }
+
+  async setUser() {
+    var bind = this
+    var wait = await firebaseAuth().onAuthStateChanged(function(user) {
+      if (user) {
+        bind.user = user;
+      } else {
+        // No user is signed in.
+      }
+    });
+
+  }
+
+  componentDidMount () {
+    this.readFavorites();
+    console.log("here");
+
   }
 
 
-  componentWillMount() {
+  async componentWillMount() {
+    await this.setUser();
+    //this.user = await firebaseAuth().currentUser;
+    //console.log(this.user);
     this.readFavorites();
     var bind = this;
 
-   database.ref('/users/' + firebaseAuth().currentUser.uid + '/favorites/')
+
+   database.ref('/users/' + this.user.uid + '/favorites/')
    .orderByChild("id")
    .on("child_removed", function(snap) {
      bind.readFavorites();
@@ -83,7 +75,14 @@ class Myshows extends Component {
     }
 
     return (
-      <div className="mainContainer">
+      <div className="myShows">
+        <div id="myshowstitle">
+          <h2><strong>My Shows: {this.tvshows.length}
+          {this.tvshows.length > 1
+            ? <span> titles</span>
+            : <span> title</span>
+          }</strong></h2>
+        </div>
         <ReactCSSTransitionGroup id="mainpanel" className="d-flex align-content-between flex-wrap"
           transitionName="example"
           transitionEnterTimeout={500}
@@ -92,13 +91,6 @@ class Myshows extends Component {
           {listItems}
 
         </ReactCSSTransitionGroup>
-          <div className="">
-          {
-            this.tvshows.length == 0
-            ? <h2 className=""><strong>No favorites :(</strong></h2>
-            : <div/>
-          }
-          </div>
       </div>
     );
   }
