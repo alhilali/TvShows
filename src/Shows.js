@@ -15,7 +15,7 @@ import Show from './Show'
 import { observable } from 'mobx';
 import { observer } from "mobx-react"
 import { searchTMDB } from './helpers/tvDB'
-import ShowList from './ShowList'
+import Welcome from './Welcome';
 
 
 function PrivateRoute ({component: Component, authed, ...rest}) {
@@ -63,10 +63,14 @@ class Shows extends Component {
           authed: true,
           uid: user.uid
         })
+
+        if (this.props.history.location.pathname === '/')
+          this.props.history.push('/home'); // redirect to home
       } else {
         this.setState({
           authed: false,
         })
+        this.props.history.push('/welcome');
       }
     })
   }
@@ -85,12 +89,6 @@ class Shows extends Component {
   }
 
   render() {
-    if (this.tvshowsSearch && this.tvshowsSearch.length > 0) {
-      var listItems = this.tvshowsSearch.map((data, i) => {
-        return (<Show className='show' name={data.name} poster={data.poster} id={data.id} key={data.id}/>)
-      });
-    }
-    if (this.tvshowsSearch) console.log();
     return (
 
     <div className="mainContainer">
@@ -98,14 +96,14 @@ class Shows extends Component {
         <Sidebar authed={this.state.authed} onSearch={this.onChange} toggle={this.toggle}/>
       </div>
       <div ref="main" className="box1">
-        <Switch>
+
+        <PublicRoute authed={this.state.authed} path='/welcome' component={Welcome} />
         <PrivateRoute authed={this.state.authed} path='/home' component={Home} query={this.keyword} />
         <PrivateRoute authed={this.state.authed} path='/myshows' component={Myshows} query={this.state.query}/>
         <PublicRoute authed={this.state.authed} path='/login' component={Login} />
         <PrivateRoute authed={this.state.authed} path='/tv/:id' component={Tv} />
         <PublicRoute authed={this.state.authed} path='/register' component={Register} />
         <Route path='/search:keyword' component={Search} />
-        </Switch>
 
       </div>
     </div>

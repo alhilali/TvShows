@@ -4,13 +4,14 @@ import './style/style.css';
 import './style/sidebar.css'
 import { Link } from 'react-router-dom'
 import { logout } from './helpers/auth'
+import logo from './img/icons/logo.png'
 
 
 class Sidebar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isCollapsed : false
+      isCollapsed : true
     }
     this.collapse = this.collapse.bind(this);
   }
@@ -40,7 +41,7 @@ class Sidebar extends Component {
 
   render() {
     return (
-        <nav ref="sidebar" className="navbar navbar-dark red bg-primary">
+        <nav ref="sidebar" className="sidebar navbar-dark">
             <div className="container">
                 <div id="collapseBtn">
                   <a onClick={this.collapse} href="#">
@@ -52,9 +53,9 @@ class Sidebar extends Component {
                     </div>
                   </a>
                 </div>
-                <a className="navbar-brand" href="#">
-                    <strong>Track-TV</strong>
-                </a>
+                <Link to='/welcome'  className="navbar-brand">
+                    <img src={logo} alt="logo" style={{width: '65px'}}/>
+                </Link>
                 <ul className="navbar-nav mr-auto">
                     <li ref="home" className="nav-item">
                         <Link onClick={this.activateHome} to="/home" className="nav-link">Home</Link>

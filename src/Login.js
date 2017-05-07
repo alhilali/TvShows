@@ -34,14 +34,11 @@ export default class Login extends Component {
           <form className="form login-form" onSubmit={this.handleSubmit}>
               <input type="text" className="form" ref={(email) => this.email = email} placeholder="Email"/>
               <input type="password" className="form" placeholder="Password" ref={(pw) => this.pw = pw} />
-            {
-              this.state.loginMessage &&
               <div className="alert alert-danger" role="alert">
                 <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                 <span className="sr-only">Error:</span>
                 &nbsp;{this.state.loginMessage} <a href="#" onClick={this.resetPassword} className="alert-link">Forgot Password?</a>
               </div>
-            }
             <button type="submit" className="btn btn-primary">Login</button>
           </form>
         </div>

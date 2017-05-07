@@ -45,11 +45,11 @@
 }
 .box2{
 	max-width: 155px;
-  width: 155px;
+  width: 35px;
 }
 
 .collapsee{
-  width: 35px;
+  width: 155px;
 }
 .box3{
 	-webkit-box-ordinal-group: 3;

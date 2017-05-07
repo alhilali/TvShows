@@ -1,0 +1,18 @@
+.welcomeContent {
+  background-color: #f9f9f9;
+  padding: 23px;
+  border-bottom: 1px solid #ccc;
+}
+
+.welcomeContent .title{
+  padding-top: 20px;
+}
+
+.welcomeContent .title #tv{
+  color: #822a44;
+}
+
+.welcomeContent h1 {
+  text-align: center;
+  font-weight: normal;
+}
