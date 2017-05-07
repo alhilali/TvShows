@@ -5,69 +5,54 @@ import './style/myshows.css';
 import Show from './Show';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import { database, firebaseAuth } from './config/constants'
+import { getFavorites } from './helpers/tvDB'
 
 @observer
 class Myshows extends Component {
   @observable tvshows = [];
   @observable current = [];
-  @observable user;
   constructor(props) {
     super(props);
-    this.setUser = this.setUser.bind(this)
   }
 
-  readFavorites() {
+  async readFavorites() {
     let list = observable([])
-    database.ref('/users/' + this.user.uid + '/favorites/')
-    .orderByChild("id")
-    .on("child_added", function(snap) {
-      list.push({
-        id : snap.val().id,
-        name : snap.val().name
-      });
-
-    })
+    list = await getFavorites();
 
     this.tvshows = list;
     this.current = list;
     return list;
   }
 
-  async setUser() {
-    var bind = this
-    var wait = await firebaseAuth().onAuthStateChanged(function(user) {
+  setValues() {
+    firebaseAuth().onAuthStateChanged((user) => {
       if (user) {
-        bind.user = user;
+        this.readFavorites();
       } else {
-        // No user is signed in.
       }
-    });
-
-  }
-
-  componentDidMount () {
-    this.readFavorites();
-    console.log("here");
-
+    })
   }
 
 
   async componentWillMount() {
-    await this.setUser();
-    //this.user = await firebaseAuth().currentUser;
-    //console.log(this.user);
+    this.setValues();
     this.readFavorites();
     var bind = this;
 
-
-   database.ref('/users/' + this.user.uid + '/favorites/')
-   .orderByChild("id")
-   .on("child_removed", function(snap) {
-     bind.readFavorites();
-   })
+    firebaseAuth().onAuthStateChanged((user) => {
+      if (user) {
+         database.ref('/users/' + user.uid + '/favorites/')
+         .orderByChild("id")
+         .on("child_removed", function(snap) {
+           bind.readFavorites();
+       })
+      } else {
+      }
+    })
   }
 
   render() {
+    //this.readFavorites();
     if (this.tvshows.length > 0) {
       var listItems = this.tvshows.map((data, i) => {
         return (<Show className='show' name={data.name} poster={data.poster} id={data.id} key={data.id}/>)

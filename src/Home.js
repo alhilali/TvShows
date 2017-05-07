@@ -8,37 +8,33 @@ import './style/Home.css';
 @observer
 class Home extends Component {
   @observable tvshows = [];
+  @observable keyword;
+  @observable searchOn = false;
+
   constructor(props) {
     super(props);
-    this.search = this.search.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.query) {
-      this.search(nextProps.query)
+      this.keyword = nextProps.query;
+      console.log(nextProps.query);
+      this.searchOn = true;
     } else {
-      this.tvshows = [];
-      this.setList();
     }
   }
 
-  async setList() {
-    this.tvshows = await getPopular();
-  }
-
-  async search(query)
-  {
-    let tvshows = observable([]);
-    this.tvshows = await searchTMDB(query);
-  }
-
-  componentWillMount() {
-    this.setList();
+  componentDidUpdate() {
+    if (this.props.query === '') this.searchOn = false;
   }
 
   render() {
     return (
       <div id="greyBackground">
+          {this.searchOn
+          ? <ShowList type='search' title="Search Results" keyword={this.keyword}/>
+          : <div></div>
+          }
           <ShowList type='popular' title="Most Popular"/>
           <ShowList type='toprated' title="Top Rated"/>
           <ShowList type='tonight' title="New on TV Tonight"/>

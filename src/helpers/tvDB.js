@@ -1,14 +1,18 @@
 import { ref, database, firebaseAuth } from '../config/constants'
 const api_key = '35a6a172e166875d39a99cf68b63af6b';
 
-export function getFavorites() {
+export async function getFavorites() {
     let list = []
-    database.ref('/users/' + firebaseAuth().currentUser.uid + '/favorites/')
+    list = await database.ref('/users/' + firebaseAuth().currentUser.uid + '/favorites/')
     .once('value')
     .then(function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
-            list.push(childSnapshot.val().id);
+            list.push({
+                id : childSnapshot.val().id,
+                name : childSnapshot.val().name
+            });
         });
+        return list;
 
     });
     return list;

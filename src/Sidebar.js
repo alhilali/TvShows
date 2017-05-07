@@ -31,7 +31,7 @@ class Sidebar extends Component {
       ReactDOM.findDOMNode(this.refs.sidebar).style.left = '0px';
       result = false;
     } else {
-      ReactDOM.findDOMNode(this.refs.sidebar).style.left = '-220px'
+      ReactDOM.findDOMNode(this.refs.sidebar).style.left = '-120px'
       result = true;
     }
     this.props.toggle()
@@ -53,7 +53,7 @@ class Sidebar extends Component {
                   </a>
                 </div>
                 <a className="navbar-brand" href="#">
-                    <strong>TV</strong>
+                    <strong>Track-TV</strong>
                 </a>
                 <ul className="navbar-nav mr-auto">
                     <li ref="home" className="nav-item">

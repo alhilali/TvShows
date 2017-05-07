@@ -6216,7 +6216,8 @@ blockquote p {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    z-index: 1
+    z-index: 1;
+    width: 75px;
 }
 
 .waves-effect .waves-ripple {
@@ -7657,13 +7658,14 @@ i.btn-danger {
     overflow: auto;
     position: fixed;
     top: 0px;
-    max-width: 255px;
+    max-width: 155px;
     height: 100%;
     z-index: 99;
     background: #3a6186;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to top, #89253e, #3a6186);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to top, #89253e, #3a6186); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     transition: all 0.3s ease-out;
+    text-align: left;
 }
 .navbar form input {
     height: 1rem

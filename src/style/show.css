@@ -29,7 +29,7 @@
 }
 
 .showPoster {
-  width: 230;
+  width: 145px;
 }
 
 #title {
@@ -59,6 +59,6 @@
 .card {
     border: 0;
     margin: 8px;
-    width: 165px;
-    height: 220px;
+    width: 135px;
+    height: 200px;
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import {BrowserRouter as Router, browserHistory, Route} from 'react-router-dom'
 import './style/App.css';
 import Shows from './Shows';
 import Myshows from './Myshows';
@@ -17,7 +17,7 @@ class App extends Component {
   render() {
     return (
       <Provider user={stores.user}>
-        <Router >
+        <Router history={browserHistory} >
           <div className="App" style={{ display: 'flex row' }}>
             <Route path="/" component={Shows}/>
           </div>

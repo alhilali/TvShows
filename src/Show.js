@@ -71,7 +71,7 @@ class Show extends Component {
 
   render() {
     return (
-      <div>
+      <div className='showPoster'>
         <div className="d-flex justify-content-left">
             {this.isFav
               ? <a id="favButn" onClick={this.toggleUnFavorite} ><img src={fullStar} alt="" style={{width: '25px'}}/></a>

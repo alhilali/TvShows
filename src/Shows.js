@@ -6,10 +6,16 @@ import Sidebar from './Sidebar';
 import Myshows from './Myshows';
 import Home from './Home';
 import Tv from './Tv';
-import { Route, Redirect } from 'react-router-dom'
+import { Route, Redirect, browserHistory } from 'react-router-dom'
 import { firebaseAuth } from './config/constants'
 import Login from './Login'
 import Register from './Register'
+import Search from './Search'
+import Show from './Show'
+import { observable } from 'mobx';
+import { observer } from "mobx-react"
+import { searchTMDB } from './helpers/tvDB'
+import ShowList from './ShowList'
 
 
 function PrivateRoute ({component: Component, authed, ...rest}) {
@@ -34,13 +40,17 @@ function PublicRoute ({component: Component, authed, ...rest}) {
   )
 }
 
+@observer
 class Shows extends Component {
+
+  @observable keyword;
   constructor(props) {
     super(props);
+    console.log(props);
     this.state = {
       authed: true,
-      query : '',
-      isCollapsed: false
+      query : 'null',
+      isCollapsed: false,
     };
 
     this.toggle = this.toggle.bind(this);
@@ -50,7 +60,8 @@ class Shows extends Component {
     this.removeListener = firebaseAuth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({
-          authed: true
+          authed: true,
+          uid: user.uid
         })
       } else {
         this.setState({
@@ -66,7 +77,7 @@ class Shows extends Component {
   }
 
   onChange = (e) => {
-    this.setState({query: e})
+    this.keyword = e;
   }
 
   toggle() {
@@ -74,6 +85,12 @@ class Shows extends Component {
   }
 
   render() {
+    if (this.tvshowsSearch && this.tvshowsSearch.length > 0) {
+      var listItems = this.tvshowsSearch.map((data, i) => {
+        return (<Show className='show' name={data.name} poster={data.poster} id={data.id} key={data.id}/>)
+      });
+    }
+    if (this.tvshowsSearch) console.log();
     return (
 
     <div className="mainContainer">
@@ -82,11 +99,12 @@ class Shows extends Component {
       </div>
       <div ref="main" className="box1">
 
-        <PrivateRoute authed={this.state.authed} path='/home' component={Home} query={this.state.query} />
-        <PrivateRoute authed={this.state.authed} path='/myshows' component={Myshows} query={this.state.query} />
+        <PrivateRoute authed={this.state.authed} path='/home' component={Home} query={this.keyword} />
+        <PrivateRoute authed={this.state.authed} path='/myshows' component={Myshows} query={this.state.query}/>
         <PublicRoute authed={this.state.authed} path='/login' component={Login} />
         <PrivateRoute authed={this.state.authed} path='/tv/:id' component={Tv} />
         <PublicRoute authed={this.state.authed} path='/register' component={Register} />
+        <Route path='/search:keyword' component={Search} />
 
 
       </div>
