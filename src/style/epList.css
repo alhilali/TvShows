@@ -5,7 +5,6 @@
   display: inline-block;
   box-sizing: border-box;
   overflow: visible;
-  vertical-align: top;
   font-style: normal;
   height: 1em;
   width: 1em;
@@ -52,7 +51,6 @@
   display: inline-block;
   box-sizing: border-box;
   overflow: visible;
-  vertical-align: top;
   font-style: normal;
   height: 1em;
   width: 1em;
@@ -120,4 +118,15 @@
 .episodesList li a {
   text-decoration: none;
   color: #000;
+}
+
+.epList {
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.watchBtn {
+  position: relative;
 }

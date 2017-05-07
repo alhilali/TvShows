@@ -3,7 +3,6 @@
 .seasonList {
   width: 800px;
   margin: 30px;
-  width: 60%;
   transition: all 0.3s ease-out;
   list-style: none;
 }

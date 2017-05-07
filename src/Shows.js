@@ -52,7 +52,6 @@ class Shows extends Component {
       query : 'null',
       isCollapsed: false,
     };
-    this.props.history.push('/home');
 
     this.toggle = this.toggle.bind(this);
   }

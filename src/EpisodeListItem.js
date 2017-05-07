@@ -33,19 +33,19 @@ class EpisodeListItem extends Component {
   render() {
     return (
         <li>
-          <div className="row epList">
-            <div className="col-sm-7 epName">
+          <div className="epList d-flex">
+            <div className="epName">
               {this.props.num}<span id="spacer"/>
 
               <Link to={"/ep/"+this.props.id+"/"+this.props.seasonNum+"/"+this.props.num}>
               {this.props.name}
               </Link>
             </div>
-            <div className='col-sm-4 epDate'>
+            <div className='epDate'>
               {this.props.date}
             </div>
 
-            <div className="col-sm-1 watchBtn">
+            <div className="watchBtn">
               {this.watched
                 ? <a onClick={this.unWatchEpisode}>
                   <div className="inoc inoc-eye"></div>
