@@ -6,7 +6,7 @@ import Sidebar from './Sidebar';
 import Myshows from './Myshows';
 import Home from './Home';
 import Tv from './Tv';
-import { Route, Redirect, browserHistory } from 'react-router-dom'
+import { Route, Redirect, browserHistory, Switch } from 'react-router-dom'
 import { firebaseAuth } from './config/constants'
 import Login from './Login'
 import Register from './Register'
@@ -52,6 +52,7 @@ class Shows extends Component {
       query : 'null',
       isCollapsed: false,
     };
+    this.props.history.push('/home');
 
     this.toggle = this.toggle.bind(this);
   }
@@ -98,14 +99,14 @@ class Shows extends Component {
         <Sidebar authed={this.state.authed} onSearch={this.onChange} toggle={this.toggle}/>
       </div>
       <div ref="main" className="box1">
-
+        <Switch>
         <PrivateRoute authed={this.state.authed} path='/home' component={Home} query={this.keyword} />
         <PrivateRoute authed={this.state.authed} path='/myshows' component={Myshows} query={this.state.query}/>
         <PublicRoute authed={this.state.authed} path='/login' component={Login} />
         <PrivateRoute authed={this.state.authed} path='/tv/:id' component={Tv} />
         <PublicRoute authed={this.state.authed} path='/register' component={Register} />
         <Route path='/search:keyword' component={Search} />
-
+        </Switch>
 
       </div>
     </div>

@@ -30,6 +30,7 @@ export default class Login extends Component {
     return (
       <div className="login-page">
         <div>
+          <h3>Login, please.</h3>
           <form className="form login-form" onSubmit={this.handleSubmit}>
               <input type="text" className="form" ref={(email) => this.email = email} placeholder="Email"/>
               <input type="password" className="form" placeholder="Password" ref={(pw) => this.pw = pw} />
